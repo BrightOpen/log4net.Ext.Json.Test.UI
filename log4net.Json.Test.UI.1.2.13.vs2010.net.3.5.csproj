@@ -44,11 +44,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repos.cs">
+    <Compile Include="BenchRun.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BenchRun.Designer.cs">
+      <DependentUpon>BenchRun.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Repos.Designer.cs">
-      <DependentUpon>Repos.cs</DependentUpon>
+    <Compile Include="Generate.Designer.cs">
+      <DependentUpon>Generate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config.Designer.cs">
+      <DependentUpon>Config.cs</DependentUpon>
     </Compile>
     <Compile Include="Appender\TestAppender.cs" />
     <Compile Include="TestUI.cs">
@@ -59,8 +71,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Repos.resx">
-      <DependentUpon>Repos.cs</DependentUpon>
+    <EmbeddedResource Include="BenchRun.resx">
+      <DependentUpon>BenchRun.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generate.resx">
+      <DependentUpon>Generate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config.resx">
+      <DependentUpon>Config.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

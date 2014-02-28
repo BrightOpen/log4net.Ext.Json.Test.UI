@@ -1,6 +1,6 @@
 ﻿namespace log4net.Json.Test.UI
 {
-    partial class Repos
+    partial class Config
     {
         /// <summary>
         /// Required designer variable.
@@ -27,7 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Repos));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Config));
             this.tvRepos = new System.Windows.Forms.TreeView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gbAppender = new System.Windows.Forms.GroupBox();
@@ -351,7 +351,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(563, 134);
+            this.tabPage2.Size = new System.Drawing.Size(355, 134);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Messages";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -367,14 +367,14 @@
             this.tbRepoMessages.Size = new System.Drawing.Size(554, 125);
             this.tbRepoMessages.TabIndex = 0;
             // 
-            // Repos
+            // Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 511);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "Repos";
-            this.Text = "Repos";
+            this.Name = "Config";
+            this.Text = "TestUI - Config";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

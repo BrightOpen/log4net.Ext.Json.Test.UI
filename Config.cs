@@ -17,9 +17,9 @@ using log4net.Repository.Hierarchy;
 
 namespace log4net.Json.Test.UI
 {
-    public partial class Repos : Form
+    public partial class Config : Form
     {
-        public Repos()
+        public Config()
         {
             InitializeComponent();
 
