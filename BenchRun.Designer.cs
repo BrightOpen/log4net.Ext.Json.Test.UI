@@ -40,9 +40,7 @@
             // 
             // progBar
             // 
-            this.progBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.progBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.progBar.ForeColor = System.Drawing.Color.Cyan;
             this.progBar.Location = new System.Drawing.Point(49, 3);
             this.progBar.Name = "progBar";

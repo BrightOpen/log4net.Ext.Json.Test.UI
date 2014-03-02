@@ -29,29 +29,36 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("aaa");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("bbb");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("aaa");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("bbb");
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tbEntry = new System.Windows.Forms.TextBox();
             this.lvLogs = new System.Windows.Forms.ListView();
             this.colDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colLogger = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colThread = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colAppender = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyOneLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyAllInArrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bReceive = new System.Windows.Forms.Button();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.tbEntry = new System.Windows.Forms.TextBox();
+            this.tvDetail = new System.Windows.Forms.TreeView();
+            this.lCount = new System.Windows.Forms.Label();
             this.bGenerate = new System.Windows.Forms.Button();
             this.bClear = new System.Windows.Forms.Button();
             this.bConfig = new System.Windows.Forms.Button();
             this.bFollow = new System.Windows.Forms.Button();
-            this.tvDetail = new System.Windows.Forms.TreeView();
             this.timerPickEvents = new System.Windows.Forms.Timer(this.components);
-            this.colMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colAppender = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colLogger = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colThread = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lCount = new System.Windows.Forms.Label();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.colTestAppenderData = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.listContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -73,28 +80,16 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.bReceive);
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel2.Controls.Add(this.lCount);
             this.splitContainer1.Panel2.Controls.Add(this.bGenerate);
             this.splitContainer1.Panel2.Controls.Add(this.bClear);
             this.splitContainer1.Panel2.Controls.Add(this.bConfig);
             this.splitContainer1.Panel2.Controls.Add(this.bFollow);
-            this.splitContainer1.Size = new System.Drawing.Size(585, 385);
-            this.splitContainer1.SplitterDistance = 124;
+            this.splitContainer1.Size = new System.Drawing.Size(589, 417);
+            this.splitContainer1.SplitterDistance = 134;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // tbEntry
-            // 
-            this.tbEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbEntry.Location = new System.Drawing.Point(3, 3);
-            this.tbEntry.Multiline = true;
-            this.tbEntry.Name = "tbEntry";
-            this.tbEntry.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbEntry.Size = new System.Drawing.Size(492, 119);
-            this.tbEntry.TabIndex = 1;
-            this.tbEntry.Text = "Full text";
             // 
             // lvLogs
             // 
@@ -107,18 +102,20 @@
             this.colLogger,
             this.colThread,
             this.colMessage,
-            this.colAppender});
+            this.colAppender,
+            this.colTestAppenderData});
+            this.lvLogs.ContextMenuStrip = this.listContextMenuStrip;
             this.lvLogs.FullRowSelect = true;
             this.lvLogs.GridLines = true;
             this.lvLogs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvLogs.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3,
-            listViewItem4});
+            listViewItem1,
+            listViewItem2});
             this.lvLogs.Location = new System.Drawing.Point(3, 3);
             this.lvLogs.MultiSelect = false;
             this.lvLogs.Name = "lvLogs";
             this.lvLogs.ShowItemToolTips = true;
-            this.lvLogs.Size = new System.Drawing.Size(579, 118);
+            this.lvLogs.Size = new System.Drawing.Size(583, 128);
             this.lvLogs.TabIndex = 0;
             this.lvLogs.UseCompatibleStateImageBehavior = false;
             this.lvLogs.View = System.Windows.Forms.View.Details;
@@ -128,6 +125,130 @@
             // 
             this.colDate.Text = "Date";
             this.colDate.Width = 118;
+            // 
+            // colLevel
+            // 
+            this.colLevel.Text = "Level";
+            this.colLevel.Width = 59;
+            // 
+            // colLogger
+            // 
+            this.colLogger.Text = "Logger";
+            this.colLogger.Width = 112;
+            // 
+            // colThread
+            // 
+            this.colThread.Text = "Thread";
+            this.colThread.Width = 89;
+            // 
+            // colMessage
+            // 
+            this.colMessage.Text = "Message";
+            this.colMessage.Width = 76;
+            // 
+            // colAppender
+            // 
+            this.colAppender.Text = "TestAppender";
+            this.colAppender.Width = 88;
+            // 
+            // listContextMenuStrip
+            // 
+            this.listContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyOneLineToolStripMenuItem,
+            this.copyAllToolStripMenuItem,
+            this.copyAllInArrayToolStripMenuItem});
+            this.listContextMenuStrip.Name = "listContextMenuStrip";
+            this.listContextMenuStrip.ShowImageMargin = false;
+            this.listContextMenuStrip.Size = new System.Drawing.Size(135, 70);
+            // 
+            // copyOneLineToolStripMenuItem
+            // 
+            this.copyOneLineToolStripMenuItem.Name = "copyOneLineToolStripMenuItem";
+            this.copyOneLineToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.copyOneLineToolStripMenuItem.Text = "Copy one line";
+            this.copyOneLineToolStripMenuItem.Click += new System.EventHandler(this.copyOneLineToolStripMenuItem_Click);
+            // 
+            // copyAllToolStripMenuItem
+            // 
+            this.copyAllToolStripMenuItem.Name = "copyAllToolStripMenuItem";
+            this.copyAllToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.copyAllToolStripMenuItem.Text = "Copy all";
+            this.copyAllToolStripMenuItem.Click += new System.EventHandler(this.copyAllToolStripMenuItem_Click);
+            // 
+            // copyAllInArrayToolStripMenuItem
+            // 
+            this.copyAllInArrayToolStripMenuItem.Name = "copyAllInArrayToolStripMenuItem";
+            this.copyAllInArrayToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.copyAllInArrayToolStripMenuItem.Text = "Copy all in array";
+            this.copyAllInArrayToolStripMenuItem.Click += new System.EventHandler(this.copyAllInArrayToolStripMenuItem_Click);
+            // 
+            // bReceive
+            // 
+            this.bReceive.Location = new System.Drawing.Point(3, 119);
+            this.bReceive.Name = "bReceive";
+            this.bReceive.Size = new System.Drawing.Size(75, 23);
+            this.bReceive.TabIndex = 24;
+            this.bReceive.Text = "Receive";
+            this.bReceive.UseVisualStyleBackColor = true;
+            this.bReceive.Click += new System.EventHandler(this.bReceive_Click);
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer2.Location = new System.Drawing.Point(84, 3);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.tbEntry);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.tvDetail);
+            this.splitContainer2.Size = new System.Drawing.Size(502, 273);
+            this.splitContainer2.SplitterDistance = 75;
+            this.splitContainer2.TabIndex = 23;
+            // 
+            // tbEntry
+            // 
+            this.tbEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbEntry.Location = new System.Drawing.Point(3, 3);
+            this.tbEntry.Multiline = true;
+            this.tbEntry.Name = "tbEntry";
+            this.tbEntry.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbEntry.Size = new System.Drawing.Size(496, 69);
+            this.tbEntry.TabIndex = 1;
+            this.tbEntry.Text = "Full text";
+            this.tbEntry.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbEntry_KeyUp);
+            this.tbEntry.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tbEntry_MouseDoubleClick);
+            // 
+            // tvDetail
+            // 
+            this.tvDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvDetail.Location = new System.Drawing.Point(3, 3);
+            this.tvDetail.Name = "tvDetail";
+            this.tvDetail.Size = new System.Drawing.Size(496, 188);
+            this.tvDetail.TabIndex = 20;
+            // 
+            // lCount
+            // 
+            this.lCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.lCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lCount.Location = new System.Drawing.Point(4, 145);
+            this.lCount.Name = "lCount";
+            this.lCount.Size = new System.Drawing.Size(77, 128);
+            this.lCount.TabIndex = 22;
+            this.lCount.Text = "0";
+            this.lCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // bGenerate
             // 
@@ -169,83 +290,20 @@
             this.bFollow.UseVisualStyleBackColor = true;
             this.bFollow.Click += new System.EventHandler(this.bFollow_Click);
             // 
-            // tvDetail
-            // 
-            this.tvDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvDetail.Location = new System.Drawing.Point(3, 3);
-            this.tvDetail.Name = "tvDetail";
-            this.tvDetail.Size = new System.Drawing.Size(492, 116);
-            this.tvDetail.TabIndex = 20;
-            // 
             // timerPickEvents
             // 
             this.timerPickEvents.Interval = 500;
             this.timerPickEvents.Tick += new System.EventHandler(this.timerPickEvents_Tick);
             // 
-            // colMessage
+            // colTestAppenderData
             // 
-            this.colMessage.Text = "Message";
-            this.colMessage.Width = 76;
-            // 
-            // colAppender
-            // 
-            this.colAppender.Text = "TestAppender";
-            this.colAppender.Width = 88;
-            // 
-            // colLevel
-            // 
-            this.colLevel.Text = "Level";
-            this.colLevel.Width = 59;
-            // 
-            // colLogger
-            // 
-            this.colLogger.Text = "Logger";
-            this.colLogger.Width = 112;
-            // 
-            // colThread
-            // 
-            this.colThread.Text = "Thread";
-            this.colThread.Width = 89;
-            // 
-            // lCount
-            // 
-            this.lCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
-            this.lCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lCount.Location = new System.Drawing.Point(4, 120);
-            this.lCount.Name = "lCount";
-            this.lCount.Size = new System.Drawing.Size(77, 131);
-            this.lCount.TabIndex = 22;
-            this.lCount.Text = "0";
-            this.lCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer2.Location = new System.Drawing.Point(84, 3);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.tbEntry);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.tvDetail);
-            this.splitContainer2.Size = new System.Drawing.Size(498, 251);
-            this.splitContainer2.SplitterDistance = 125;
-            this.splitContainer2.TabIndex = 23;
+            this.colTestAppenderData.Text = "Data";
             // 
             // TestUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 409);
+            this.ClientSize = new System.Drawing.Size(613, 441);
             this.Controls.Add(this.splitContainer1);
             this.Name = "TestUI";
             this.Text = "TestUI";
@@ -253,6 +311,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.listContextMenuStrip.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -281,6 +340,12 @@
         private System.Windows.Forms.ColumnHeader colThread;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Label lCount;
+        private System.Windows.Forms.Button bReceive;
+        private System.Windows.Forms.ContextMenuStrip listContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem copyOneLineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyAllInArrayToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader colTestAppenderData;
     }
 }
 

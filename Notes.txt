@@ -1,0 +1,3 @@
+﻿
+Efficient logging infrastructure described
+https://lists.lopsa.org/pipermail/discuss/2012-April/016889.html

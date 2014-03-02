@@ -37,6 +37,7 @@ namespace log4net.Json.Test.UI
         JavaScriptSerializer Serializer = new JavaScriptSerializer();
         Config ReposForm;
         Generate GenerateForm;
+        Receive ReceiveForm;
 
         public TestUI()
         {
@@ -51,7 +52,7 @@ namespace log4net.Json.Test.UI
         {
             if (lvLogs.SelectedItems.Count == 0 && lvLogs.Items.Count != 0)
             {
-                lvLogs.Items[lvLogs.Items.Count - 1].EnsureVisible();
+                GetListItem().EnsureVisible();
             }
 
             UpdateDetail();
@@ -62,42 +63,35 @@ namespace log4net.Json.Test.UI
             tvDetail.Nodes.Clear();
             tbEntry.Text = String.Empty;
 
-            if (lvLogs.Items.Count != 0)
+            var item = GetListItem();
+            var le = GetListEvent(item);
+            var data = GetListData(item);
+
+            if (item == null) return;
+
+            if (le == null)
             {
-                var item = lvLogs.SelectedItems.Count == 0
-                        ? lvLogs.Items[lvLogs.Items.Count - 1]
-                        : lvLogs.SelectedItems[0];
-
-                var le = item.Tag as LoggingEvent;
-
-                if (le == null)
-                {
-                    tvDetail.Nodes.Add(new TreeNode(String.Format("Unknown entry #{0}: {1}", item.Index, item.Tag)));
-                }
-                else
-                {
-                    var data = le.Properties["TestAppenderData"] as string;
-                    if (string.IsNullOrEmpty(data)) data = le.RenderedMessage;
-                    if (string.IsNullOrEmpty(data)) data = le.ToString();
-                    tbEntry.Text = data;
-
-                    try
-                    {
-                        var obj = Serializer.DeserializeObject(data);
-                        tvDetail.Nodes.AddRange(VisualizeDict(obj as IDictionary).ToArray());
-                    }
-                    catch (Exception x)
-                    {
-                        tvDetail.Nodes.Add(new TreeNode(String.Format("Could not parse the data due to exception: {0}", x.ToString())));
-                    }
-
-                    tvDetail.Nodes.Add(new TreeNode(String.Format("Entry #{0}: {1}", item.Index, data)));
-
-                }
-
-                tvDetail.ExpandAll();
-
+                tvDetail.Nodes.Add(new TreeNode(String.Format("Unknown entry #{0}: {1}", item.Index, item.Tag)));
             }
+            else
+            {
+                tbEntry.Text = data;
+
+                try
+                {
+                    var obj = Serializer.DeserializeObject(data);
+                    tvDetail.Nodes.AddRange(VisualizeDict(obj as IDictionary).ToArray());
+                }
+                catch (Exception x)
+                {
+                    tvDetail.Nodes.Add(new TreeNode(String.Format("Could not parse the data due to exception: {0}", x.ToString())));
+                }
+
+                tvDetail.Nodes.Add(new TreeNode(String.Format("Entry #{0}: {1}", item.Index, data)));
+            }
+
+            tvDetail.ExpandAll();
+
         }
 
         IEnumerable<TreeNode> VisualizeDict(IDictionary dict)
@@ -169,33 +163,52 @@ namespace log4net.Json.Test.UI
             if (form.WindowState == FormWindowState.Minimized) form.WindowState = FormWindowState.Normal;
 
         }
-
-
-        void TestAppender_Appended(IAppender appender, LoggingEvent loggingEvent, string entry)
+        private void bReceive_Click(object sender, EventArgs e)
         {
+            var form = ReceiveForm;
+
+            if (form == null || form.IsDisposed)
+            {
+                ReceiveForm = form = new Receive();
+            }
+
+            form.Show();
+            form.Select();
+
+            if (form.WindowState == FormWindowState.Minimized) form.WindowState = FormWindowState.Normal;
+
+
         }
+
+
         private void timerPickEvents_Tick(object sender, EventArgs e)
         {
             var events = TestAppender.GetEvents().ToArray();
+            var lvitems = new List<ListViewItem>(events.Length);
 
             if (events.Length != 0)
             {
-                var lvitems = (from le in events
-                               select new ListViewItem(
+                foreach (var le in events)
+                {
+                    lvitems.Add(new ListViewItem(
                                      new string[] { 
                                     le.TimeStamp.ToString("u"), 
                                     le.Level.DisplayName, 
                                     le.LoggerName, 
                                     le.ThreadName, 
                                     le.RenderedMessage,
-                                    Convert.ToString(le.Properties["TestAppender"]) 
+                                    Convert.ToString(le.Properties["TestAppender"]) ,
+                                    Convert.ToString(le.Properties["TestAppenderData"]) ,
                                 })
                                      {
                                          Tag = le
-                                     }
-                              ).ToArray();
+                                     });
 
-                var textupdatecall = new Action(() => { lvLogs.Items.AddRange(lvitems); UpdateView(); });
+                    le.Properties.Remove("TestAppender");
+                    le.Properties.Remove("TestAppenderData");
+                }
+
+                var textupdatecall = new Action(() => { lvLogs.Items.AddRange(lvitems.ToArray()); UpdateView(); });
 
                 if (lvLogs.InvokeRequired)
                     lvLogs.Invoke(textupdatecall);
@@ -206,6 +219,105 @@ namespace log4net.Json.Test.UI
             lCount.Text = lvLogs.Items.Count.ToString("###,###,###");
         }
 
+        private void tbEntry_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            SelectAllText();
+        }
+
+        private void tbEntry_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode.ToString() == "A")
+            {
+                SelectAllText();
+            }
+            else if (e.Control && e.KeyCode.ToString() == "C")
+            {
+                if (tbEntry.SelectionLength == 0)
+                    Clipboard.SetText(tbEntry.Text);
+            }
+        }
+
+        void SelectAllText()
+        {
+            tbEntry.SelectionStart = 0;
+            tbEntry.SelectionLength = tbEntry.TextLength;
+        }
+
+        private void copyOneLineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var data = GetListData();
+
+            Clipboard.SetText(data);
+        }
+
+        private void copyAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var sb = new StringBuilder();
+
+            foreach (ListViewItem lvitem in lvLogs.Items)
+            {
+                sb.Append(GetListData(lvitem));
+            }
+
+            Clipboard.SetText(sb.ToString());
+        }
+
+        private void copyAllInArrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var sb = new StringBuilder();
+            sb.Append("[");
+            bool has = false;
+
+            foreach (ListViewItem lvitem in lvLogs.Items)
+            {
+                if (has) sb.Append(",");
+                has = true;
+                sb.Append(GetListData(lvitem));
+            }
+            sb.AppendLine("]");
+
+            Clipboard.SetText(sb.ToString());
+        }
+
+        protected String GetListData(ListViewItem lvitem = null)
+        {
+            lvitem = lvitem ?? GetListItem();
+
+            if (lvitem == null) return null;
+
+            var data = lvitem.SubItems[colTestAppenderData.Index].Text;
+            
+            var le = GetListEvent(lvitem);
+            if (le != null)
+            {
+                if (string.IsNullOrEmpty(data)) data = le.RenderedMessage;
+                if (string.IsNullOrEmpty(data)) data = le.ToString();
+            }
+
+            return data;
+        }
+
+        protected LoggingEvent GetListEvent(ListViewItem lvitem = null)
+        {
+            lvitem = lvitem ?? GetListItem();
+
+            if (lvitem == null) return null;
+
+            return lvitem.Tag as LoggingEvent;
+        }
+
+        protected ListViewItem GetListItem()
+        {
+            var lvitem =
+                   (lvLogs.SelectedItems.Count > 0
+                   ? lvLogs.SelectedItems[0]
+                   : lvLogs.Items.Count > 0
+                   ? lvLogs.Items[lvLogs.Items.Count - 1]
+                   : null
+                   );
+
+            return lvitem;
+        }
 
     }
 }

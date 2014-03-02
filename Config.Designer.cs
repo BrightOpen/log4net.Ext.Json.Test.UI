@@ -329,6 +329,7 @@
             this.tbRepoConfig.Location = new System.Drawing.Point(2, 6);
             this.tbRepoConfig.Multiline = true;
             this.tbRepoConfig.Name = "tbRepoConfig";
+            this.tbRepoConfig.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbRepoConfig.Size = new System.Drawing.Size(350, 56);
             this.tbRepoConfig.TabIndex = 0;
             this.tbRepoConfig.Text = resources.GetString("tbRepoConfig.Text");
@@ -364,7 +365,8 @@
             this.tbRepoMessages.Location = new System.Drawing.Point(6, 6);
             this.tbRepoMessages.Multiline = true;
             this.tbRepoMessages.Name = "tbRepoMessages";
-            this.tbRepoMessages.Size = new System.Drawing.Size(554, 125);
+            this.tbRepoMessages.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbRepoMessages.Size = new System.Drawing.Size(343, 125);
             this.tbRepoMessages.TabIndex = 0;
             // 
             // Config

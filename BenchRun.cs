@@ -61,8 +61,9 @@ namespace log4net.Json.Test.UI
         }
 
         public int Sleepiness { get; set; }
-        public TimeSpan Timing { get; set; }
-        public bool Success { get; set; }
+        public TimeSpan Timing { get; private set; }
+        public DateTime Date { get; private set; }
+        public bool Success { get; private set; }
         public bool Detailed
         {
             get { return lLogger.Visible; }
@@ -99,6 +100,7 @@ namespace log4net.Json.Test.UI
         }
         public void Start()
         {
+            Date = DateTime.Now;
             Interlocked.CompareExchange(ref State, 1, 0);
         }
 
@@ -109,7 +111,7 @@ namespace log4net.Json.Test.UI
 
         protected void Action(Action action)
         {
-            if (progBar.InvokeRequired)
+            if (!progBar.IsDisposed && progBar.InvokeRequired)
                 progBar.Invoke(action);
             else
                 action();
@@ -124,6 +126,8 @@ namespace log4net.Json.Test.UI
                 Color = Color.DarkBlue;
                 var c = NumberOfEvents;
                 var sleep = Sleepiness;
+
+                if (log.IsDebugEnabled) log.Debug("Ready");
 
                 while (State == 0) Thread.Sleep(1);
 
@@ -160,6 +164,8 @@ namespace log4net.Json.Test.UI
                     Success = true;
                 }
                 Stats = String.Format("Score:{2}. Sent {0:###,###,###} events in {1}.", NumberOfEventsDone, Timing, NumberOfEventsDone / Timing.TotalMilliseconds);
+
+                if (log.IsDebugEnabled) log.Debug(Stats);
             }
         }
 
@@ -171,5 +177,7 @@ namespace log4net.Json.Test.UI
 
 
 
+
+        public int Set { get; set; }
     }
 }

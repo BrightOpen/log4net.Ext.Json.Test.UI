@@ -50,6 +50,7 @@
     <Compile Include="BenchRun.Designer.cs">
       <DependentUpon>BenchRun.cs</DependentUpon>
     </Compile>
+    <Compile Include="FastUdpReceiver.cs" />
     <Compile Include="Generate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +64,12 @@
       <DependentUpon>Config.cs</DependentUpon>
     </Compile>
     <Compile Include="Appender\TestAppender.cs" />
+    <Compile Include="Receive.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Receive.Designer.cs">
+      <DependentUpon>Receive.cs</DependentUpon>
+    </Compile>
     <Compile Include="TestUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +78,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LogUdpReceiver.cs" />
     <EmbeddedResource Include="BenchRun.resx">
       <DependentUpon>BenchRun.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +98,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Receive.resx">
+      <DependentUpon>Receive.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestUI.resx">
       <DependentUpon>TestUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,6 +129,9 @@
       <Project>{06A52FA9-985D-455A-A7EE-EF6179B26919}</Project>
       <Name>log4net.Ext.Json.1.3.trunk.vs2010.net.4.0</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Notes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
