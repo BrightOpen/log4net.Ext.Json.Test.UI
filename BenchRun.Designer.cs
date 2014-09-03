@@ -110,21 +110,21 @@
             // 
             // lLogger
             // 
-            this.lLogger.AutoSize = true;
+            this.lLogger.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lLogger.Location = new System.Drawing.Point(49, 20);
             this.lLogger.Name = "lLogger";
-            this.lLogger.Size = new System.Drawing.Size(58, 13);
+            this.lLogger.Size = new System.Drawing.Size(134, 20);
             this.lLogger.TabIndex = 4;
             this.lLogger.Text = "BenchRun";
             // 
             // lSent
             // 
-            this.lSent.AutoSize = true;
+            this.lSent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lSent.Location = new System.Drawing.Point(49, 40);
             this.lSent.Name = "lSent";
-            this.lSent.Size = new System.Drawing.Size(13, 13);
+            this.lSent.Size = new System.Drawing.Size(134, 20);
             this.lSent.TabIndex = 6;
-            this.lSent.Text = "0";
+            this.lSent.Text = "0 sas asdas asd asd asd asd asd as as";
             // 
             // BenchRun
             // 

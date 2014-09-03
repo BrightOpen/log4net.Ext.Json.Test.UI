@@ -42,23 +42,22 @@ namespace log4net.Json.Test.UI
             var noThreads = (int)nudThreads.Value;
             var sleepiness = (int)nudSleepiness.Value;
             var loggerName = comboLoggerName.Text;
+            var controls = new Control[noThreads];
             if (String.IsNullOrEmpty(loggerName)) loggerName = "BenchMark.Run{0}";
-            for (int i = 0; i < noThreads; i++)
-            {
-                var benchRun = new BenchRun()
-                {
-                    Name = String.Format("BenchRun{0}", flowLayoutPanel1.Controls.Count, noEvents),
-                    Caption = String.Format("#{0}: {1} events", flowLayoutPanel1.Controls.Count, noEvents),
-                    LoggerName = String.Format(loggerName, flowLayoutPanel1.Controls.Count),
-                    NumberOfEvents = noEvents,
-                    Sleepiness = sleepiness,
-                    Set = sets,
-                };
-                flowLayoutPanel1.Controls.Add(benchRun);
-                flowLayoutPanel1.Controls.SetChildIndex(benchRun, 0);
-                benchRun.Prepare();
-            }
 
+            var benchRun = new BenchRun()
+            {
+                Name = String.Format("BenchRun{0}", flowLayoutPanel1.Controls.Count, noEvents),
+                LoggerName = String.Format(loggerName, flowLayoutPanel1.Controls.Count),
+                EventsPerThread = noEvents,
+                NumberOfThreads = noThreads,
+                Sleepiness = sleepiness,
+                Set = sets,
+            };
+            benchRun.Prepare();
+
+            flowLayoutPanel1.Controls.Add(benchRun);
+            flowLayoutPanel1.Controls.SetChildIndex(benchRun, 0);
             Align();
         }
 
@@ -70,11 +69,15 @@ namespace log4net.Json.Test.UI
 
         void Clear()
         {
+            flowLayoutPanel1.SuspendLayout();
             foreach (var benchRun in flowLayoutPanel1.Controls.OfType<BenchRun>().ToArray())
             {
                 if (!benchRun.Started)
                     flowLayoutPanel1.Controls.Remove(benchRun);
+
+                benchRun.Dispose();
             }
+            flowLayoutPanel1.ResumeLayout();
         }
 
         void Align()

@@ -35,7 +35,7 @@ namespace log4net.Json.Test.UI
             var log = log4net.LogManager.GetLogger(typeof(Program));
             log.Info("Starting");
 
-            Application.EnableVisualStyles();
+            Application.EnableVisualStyles(); 
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new TestUI());
 
